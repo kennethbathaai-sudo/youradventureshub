@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { CATEGORIES } from '@/lib/types'
-import { ADVENTURES } from '@/lib/seed'
+import { allAdventures as ADVENTURES } from '@/lib/seed'
 
 export async function GET() {
   // Add counts to categories

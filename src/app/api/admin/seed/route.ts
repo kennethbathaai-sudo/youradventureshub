@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { ADVENTURES } from '@/lib/seed'
+import { allAdventures as ADVENTURES } from '@/lib/seed'
 
 export async function POST() {
   // Clear existing adventures
