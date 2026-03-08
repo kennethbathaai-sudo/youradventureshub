@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --adventure-orange: #ff6b35;
+  --adventure-green: #2ecc71;
+}
+
+body {
+  background: #0f0f0f;
+  color: #f5f5f5;
+}
+
+.adventure-gradient {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+}
+
+.adventure-card:hover .adventure-overlay {
+  opacity: 1;
+}
