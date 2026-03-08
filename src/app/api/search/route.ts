@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { searchAdventures, ADVENTURES } from '@/lib/seed'
+import { searchAdventures, allAdventures as ADVENTURES } from '@/lib/seed'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)

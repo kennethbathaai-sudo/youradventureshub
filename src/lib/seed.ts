@@ -149,8 +149,8 @@ const ADVENTURES: Adventure[] = [
   { id: '142', title: 'Cardiff Half Marathon', description: 'Part of the SuperHalfs series.', category: 'running', location: { continent: 'Europe', country: 'UK', region: 'Wales' }, difficulty: 'moderate', duration: '1 day', price_min: 50, price_max: 80, provider: 'Cardiff Half', provider_url: 'https://www.cardiffhalfmarathon.co.uk/', image_url: 'https://images.unsplash.com/photo-1596727362306-b8d891c42ab8?w=800', featured: false },
 ]
 
-export default ADVENTURES
-export { ADVENTURES as allAdventures }
+
+export { ADVENTURES, ADVENTURES as allAdventures }
 
 export function getAdventuresByCategory(category: string): Adventure[] {
   return ADVENTURES.filter(a => a.category === category)
@@ -194,3 +194,4 @@ export function getAllRegions(): string[] {
 export function getAllContinents(): string[] {
   return [...new Set(ADVENTURES.map(a => a.location.continent))]
 }
+export default ADVENTURES
