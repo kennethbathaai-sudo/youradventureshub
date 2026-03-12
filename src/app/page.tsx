@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black">
       {/* Hero */}
-      <header className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+      <header className="relative h-auto min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden py-16 md:py-0">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-900/80 to-black z-10" />
         <div 
           className="absolute inset-0 bg-cover bg-center"
@@ -25,10 +25,10 @@ export default function Home() {
         />
         
         <div className="relative z-20 text-center px-4 max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6">
             <span className="text-orange-500">Your</span><span className="text-white">AdventuresHub</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8">
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 md:mb-8">
             Discover extraordinary adventures worldwide. 
             From hiking Everest to swimming with sharks.
           </p>
@@ -36,13 +36,13 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/adventures" 
-              className="px-8 py-4 bg-orange-500 text-white font-bold rounded-full hover:bg-orange-600 transition"
+              className="px-6 py-3 md:px-8 md:py-4 bg-orange-500 text-white font-bold rounded-full hover:bg-orange-600 transition text-base md:text-lg"
             >
               Explore Adventures
             </Link>
             <Link 
               href="/categories" 
-              className="px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-black transition"
+              className="px-6 py-3 md:px-8 md:py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-black transition text-base md:text-lg"
             >
               Browse by Category
             </Link>
@@ -66,7 +66,7 @@ export default function Home() {
 
       {/* Stats */}
       <section className="py-16 px-4 bg-zinc-900">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 gap-4 md:gap-8 text-center">
           <div>
             <p className="text-4xl font-bold text-orange-500">50+</p>
             <p className="text-gray-400">Adventures</p>
@@ -93,7 +93,7 @@ export default function Home() {
             Choose Your <span className="text-orange-500">Adventure</span>
           </h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
             {CATEGORIES.map((cat) => (
               <Link
                 key={cat.id}
@@ -118,7 +118,7 @@ export default function Home() {
             Featured <span className="text-orange-500">Adventures</span>
           </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {featured.slice(0, 9).map((adventure) => (
               <Link
                 key={adventure.id}
@@ -180,7 +180,7 @@ export default function Home() {
             Explore by <span className="text-orange-500">Location</span>
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {['Asia', 'Africa', 'Europe', 'North America', 'South America', 'Oceania'].map((continent) => (
               <Link
                 key={continent}
