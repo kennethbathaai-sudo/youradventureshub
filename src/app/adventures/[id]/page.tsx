@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getAdventureById, allAdventures as ADVENTURES } from '@/lib/seed'
 import { CATEGORIES } from '@/lib/types'
+import { getGearForCategory, AFFILIATES } from '@/lib/affiliates'
 
 export function generateStaticParams() {
   return ADVENTURES.map((adventure) => ({
@@ -155,6 +156,68 @@ export default async function AdventurePage({ params }: { params: Promise<{ id: 
                     <p className="text-gray-400 text-sm">{a.location.country}</p>
                     <p className="text-orange-500 font-bold mt-2">${a.price_min}+</p>
                   </div>
+
+          {/* Gear Recommendations */}
+          <div className="mt-16 bg-zinc-900 rounded-2xl p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold">Recommended Gear</h2>
+              <a href={AFFILIATES.amazon.url} target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline text-sm">
+                Shop on Amazon →
+              </a>
+            </div>
+
+          {/* Travel Insurance */}
+          <div className="mt-8 bg-gradient-to-r from-blue-900/50 to-zinc-900 rounded-2xl p-6 border border-blue-800/50">
+            <div className="flex items-start gap-4">
+              <div className="text-4xl">🛡️</div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-2">Travel Insurance Recommended</h3>
+                <p className="text-gray-400 text-sm mb-4">
+                  Adventure travel requires proper coverage. We recommend SafetyWing for digital nomads and World Nomads for comprehensive protection.
+                </p>
+                <div className="flex gap-3">
+                  <a
+                    href="https://safetywing.com?invited=youradventureshub"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-blue-600 text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition"
+                  >
+                    SafetyWing
+                  </a>
+                  <a
+                    href="https://www.worldnomads.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 border border-blue-500 text-blue-400 text-sm font-bold rounded-lg hover:bg-blue-500 hover:text-white transition"
+                  >
+                    World Nomads
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+            <p className="text-gray-400 mb-6">Gear for this adventure type (affiliate links)</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {getGearForCategory(adventure.category).map((gear, idx) => (
+                <a
+                  key={idx}
+                  href={`https://www.amazon.com/dp/${gear.asin}?tag=youradventureshub-20`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-black rounded-xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition"
+                >
+                  <img
+                    src={gear.image}
+                    alt={gear.name}
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="p-3">
+                    <p className="text-white text-sm font-medium group-hover:text-orange-500 transition line-clamp-2">{gear.name}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
                 </Link>
               ))}
           </div>

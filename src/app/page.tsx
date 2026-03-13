@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { CATEGORIES, CONTINENTS } from '@/lib/types'
 import { getFeaturedAdventures, getAllCountries } from '@/lib/seed'
 import SearchBar from './SearchBar'
+import AffiliateBanner from './components/AffiliateBanner'
 
 export default function Home() {
   const featured = getFeaturedAdventures()
@@ -229,6 +230,7 @@ export default function Home() {
         </div>
       </section>
 
+      <AffiliateBanner />
       {/* Footer */}
       <footer className="py-12 px-4 bg-black border-t border-zinc-800">
         <div className="max-w-6xl mx-auto text-center">
