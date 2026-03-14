@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { UserButton, useUser } from '@clerk/nextjs'
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { isSignedIn, user } = useUser()
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800">
@@ -32,29 +34,45 @@ export function Navbar() {
             <Link href="/search" className="text-gray-300 hover:text-orange-500 transition">
               Search
             </Link>
+            <Link href="/gear" className="text-gray-300 hover:text-orange-500 transition">
+              Gear
+            </Link>
           </div>
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Link 
-              href="/bucket-list" 
-              className="flex items-center gap-2 text-gray-300 hover:text-orange-500 transition"
-            >
-              <span>❤️</span>
-              <span>My Bucket List</span>
-            </Link>
-            <Link 
-              href="/auth/signin" 
-              className="px-4 py-2 text-gray-300 hover:text-white transition"
-            >
-              Sign In
-            </Link>
-            <Link 
-              href="/auth/signup" 
-              className="px-4 py-2 bg-orange-500 text-white font-bold rounded-full hover:bg-orange-600 transition"
-            >
-              Get Started
-            </Link>
+            {isSignedIn ? (
+              <>
+                <Link 
+                  href="/bucket-list" 
+                  className="flex items-center gap-2 text-gray-300 hover:text-orange-500 transition"
+                >
+                  <span>❤️</span>
+                  <span>My Bucket List</span>
+                </Link>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-gray-400">
+                    Hi, {user?.firstName || 'Explorer'}!
+                  </span>
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/auth/signin" 
+                  className="px-4 py-2 text-gray-300 hover:text-white transition"
+                >
+                  Sign In
+                </Link>
+                <Link 
+                  href="/auth/signup" 
+                  className="px-4 py-2 bg-orange-500 text-white font-bold rounded-full hover:bg-orange-600 transition"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -89,16 +107,28 @@ export function Navbar() {
             <Link href="/search" className="block text-gray-300 hover:text-orange-500">
               Search
             </Link>
+            <Link href="/gear" className="block text-gray-300 hover:text-orange-500">
+              Gear
+            </Link>
             <Link href="/bucket-list" className="block text-gray-300 hover:text-orange-500">
               My Bucket List
             </Link>
             <hr className="border-zinc-800" />
-            <Link href="/auth/signin" className="block text-gray-300">
-              Sign In
-            </Link>
-            <Link href="/auth/signup" className="block text-orange-500 font-bold">
-              Get Started
-            </Link>
+            {isSignedIn ? (
+              <div className="flex items-center justify-between">
+                <span className="text-gray-400">Hi, {user?.firstName || 'Explorer'}!</span>
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            ) : (
+              <>
+                <Link href="/auth/signin" className="block text-gray-300">
+                  Sign In
+                </Link>
+                <Link href="/auth/signup" className="block text-orange-500 font-bold">
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

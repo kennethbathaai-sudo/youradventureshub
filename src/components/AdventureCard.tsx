@@ -2,13 +2,16 @@
 
 import Link from 'next/link'
 import { Adventure } from '@/lib/types'
+import { getAdventureImage } from '@/lib/images'
 
 interface AdventureCardProps {
   adventure: Adventure
   showActions?: boolean
+  isInBucketList?: boolean
+  onToggleBucketList?: () => void
 }
 
-export function AdventureCard({ adventure, showActions = false }: AdventureCardProps) {
+export function AdventureCard({ adventure, showActions = false, isInBucketList = false, onToggleBucketList }: AdventureCardProps) {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'extreme': return 'bg-red-500'
@@ -23,7 +26,7 @@ export function AdventureCard({ adventure, showActions = false }: AdventureCardP
       <Link href={`/adventures/${adventure.id}`}>
         <div className="aspect-[16/10] relative overflow-hidden">
           <img 
-            src={adventure.image_url} 
+            src={getAdventureImage(adventure)} 
             alt={adventure.title}
             className="object-cover w-full h-full group-hover:scale-105 transition duration-500"
           />
@@ -70,8 +73,15 @@ export function AdventureCard({ adventure, showActions = false }: AdventureCardP
 
         {showActions && (
           <div className="flex gap-2 mt-4 pt-4 border-t border-zinc-800">
-            <button className="flex-1 px-3 py-2 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition text-sm">
-              ❤️ Save
+            <button 
+              onClick={onToggleBucketList}
+              className={`flex-1 px-3 py-2 rounded-lg transition text-sm ${
+                isInBucketList 
+                  ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/50' 
+                  : 'bg-zinc-800 text-white hover:bg-zinc-700'
+              }`}
+            >
+              {isInBucketList ? '❤️ Saved' : '❤️ Save'}
             </button>
             <Link 
               href={`/adventures/${adventure.id}`}
