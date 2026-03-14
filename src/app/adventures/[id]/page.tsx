@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { getAdventureById, allAdventures as ADVENTURES } from '@/lib/seed'
 import { CATEGORIES } from '@/lib/types'
 import { getGearForCategory, AFFILIATES } from '@/lib/affiliates'
+import AffiliateBanner from '@/components/AffiliateBanner'
 
 export function generateStaticParams() {
   return ADVENTURES.map((adventure) => ({
@@ -156,18 +157,12 @@ export default async function AdventurePage({ params }: { params: Promise<{ id: 
                     <p className="text-gray-400 text-sm">{a.location.country}</p>
                     <p className="text-orange-500 font-bold mt-2">${a.price_min}+</p>
                   </div>
-
-          {/* Gear Recommendations */}
-          <div className="mt-16 bg-zinc-900 rounded-2xl p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Recommended Gear</h2>
-              <a href={AFFILIATES.amazon.url} target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline text-sm">
-                Shop on Amazon →
-              </a>
-            </div>
+                </Link>
+              ))}
+          </div>
 
           {/* Travel Insurance */}
-          <div className="mt-8 bg-gradient-to-r from-blue-900/50 to-zinc-900 rounded-2xl p-6 border border-blue-800/50">
+          <div className="mt-12 bg-gradient-to-r from-blue-900/50 to-zinc-900 rounded-2xl p-6 border border-blue-800/50">
             <div className="flex items-start gap-4">
               <div className="text-4xl">🛡️</div>
               <div className="flex-1">
@@ -196,6 +191,15 @@ export default async function AdventurePage({ params }: { params: Promise<{ id: 
               </div>
             </div>
           </div>
+
+          {/* Recommended Gear */}
+          <div className="mt-12 bg-zinc-900 rounded-2xl p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold">Recommended Gear</h2>
+              <a href="https://www.amazon.com?tag=youradventureshub-20" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline text-sm">
+                Shop on Amazon →
+              </a>
+            </div>
             <p className="text-gray-400 mb-6">Gear for this adventure type (affiliate links)</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {getGearForCategory(adventure.category).map((gear, idx) => (
@@ -218,8 +222,10 @@ export default async function AdventurePage({ params }: { params: Promise<{ id: 
               ))}
             </div>
           </div>
-                </Link>
-              ))}
+
+          {/* Sidebar Affiliate */}
+          <div className="mt-12">
+            <AffiliateBanner type="sidebar" />
           </div>
         </div>
       </main>
